@@ -13,7 +13,7 @@
           "offer": "UbuntuServer",
           "sku": "16.04.0-LTS"
         },
-        "nodeAgentSKUId": "batch.node.ubuntu 16.04"
+        "nodeAgentSkuId": "batch.node.ubuntu 16.04"
       },
       "resizeTimeout": "PT15M",
       "targetDedicatedNodes": 5,

@@ -10,7 +10,7 @@
       "body": {
         "value": [
           {
-            "nodeAgentSKUId": "batch.node.centos 7",
+            "nodeAgentSkuId": "batch.node.centos 7",
             "imageReference": {
               "publisher": "OpenLogic",
               "offer": "CentOS",
@@ -25,7 +25,7 @@
             "osType": "linux"
           },
           {
-            "nodeAgentSKUId": "batch.node.centos 7",
+            "nodeAgentSkuId": "batch.node.centos 7",
             "imageReference": {
               "publisher": "OpenLogic",
               "offer": "CentOS",
@@ -37,7 +37,7 @@
             "batchSupportEndOfLife": "2019-11-01T00:00:00.0Z"
           },
           {
-            "nodeAgentSKUId": "batch.node.debian 8",
+            "nodeAgentSkuId": "batch.node.debian 8",
             "imageReference": {
               "publisher": "Credativ",
               "offer": "Debian",
@@ -48,7 +48,7 @@
             "osType": "linux"
           },
           {
-            "nodeAgentSKUId": "batch.node.windows amd64",
+            "nodeAgentSkuId": "batch.node.windows amd64",
             "imageReference": {
               "publisher": "MicrosoftWindowsServer",
               "offer": "WindowsServer",
@@ -59,7 +59,7 @@
             "osType": "windows"
           },
           {
-            "nodeAgentSKUId": "batch.node.windows amd64",
+            "nodeAgentSkuId": "batch.node.windows amd64",
             "imageReference": {
               "publisher": "MicrosoftWindowsServer",
               "offer": "WindowsServer",

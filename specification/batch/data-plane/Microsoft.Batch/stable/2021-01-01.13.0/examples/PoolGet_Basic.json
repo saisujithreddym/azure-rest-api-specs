@@ -48,7 +48,7 @@
             "sku": "16.04.0-LTS",
             "version": "latest"
           },
-          "nodeAgentSKUId": "batch.node.ubuntu 16.04"
+          "nodeAgentSkuId": "batch.node.ubuntu 16.04"
         }
       }
     }
