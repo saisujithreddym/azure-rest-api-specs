@@ -3481,6 +3481,8 @@
           "description": "The properties associated with the pool."
         },
         "identity": {
+          "title": "The type of identity used for the Batch Pool.",
+          "description": "The type of identity used for the Batch Pool.",
           "$ref": "#/definitions/BatchPoolIdentity"
         }
       },
