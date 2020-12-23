@@ -4209,6 +4209,8 @@
       }
     },
     "NodePlacementConfiguration": {
+      "title": "Node placement configuration for batch pools.",
+      "description": "Allocation configuration used by Batch Service to provision the nodes.",
       "properties": {
         "policy": {
           "$ref": "#/definitions/NodePlacementPolicyType",
