@@ -43,8 +43,9 @@
                 "publisher": "Microsoft.Azure.Security.Monitoring",
                 "typeHandlerVersion": "1.0",
                 "autoUpgradeMinorVersion": true,
-                "settings": "securitySettings",
-                "protectedSettings": "linuxSecuritySettings"
+                "settings": {
+                  "settingsKey": "settingsValue"
+                }
               }
             ]
           }

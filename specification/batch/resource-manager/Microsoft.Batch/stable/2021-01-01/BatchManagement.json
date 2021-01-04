@@ -4248,6 +4248,7 @@
           "title": "JSON formatted public settings for the extension."
         },
         "protectedSettings": {
+          "x-ms-secret": true,
           "type": "object",
           "description": "The extension can contain either protectedSettings or protectedSettingsFromKeyVault or no protected settings at all. "
         },
