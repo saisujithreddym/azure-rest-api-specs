@@ -28,7 +28,7 @@ These are the global settings for the Network API.
 title: NetworkManagementClient
 description: Network Client
 openapi-type: arm
-tag: package-2025-05-01
+tag: package-2025-09-01
 ```
 
 ### Tag: package-2025-09-01
