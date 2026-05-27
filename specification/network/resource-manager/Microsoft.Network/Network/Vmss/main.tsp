@@ -44,4 +44,10 @@ enum Versions {
    */
   @useDependency(Common.Versions.v2018_10_01)
   v2018_10_01: "2018-10-01",
+
+  /**
+   * The 2025-09-01 API version.
+   */
+  @useDependency(Common.Versions.v2018_10_01)
+  v2025_09_01: "2025-09-01",
 }
