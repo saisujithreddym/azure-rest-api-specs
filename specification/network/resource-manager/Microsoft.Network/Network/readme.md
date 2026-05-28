@@ -105,6 +105,12 @@ directive:
     where: "$.definitions.systemData"
     transform: >
       $["x-ms-client-name"] = "SecurityPerimeterSystemData"
+
+  - from: networkGateway.json
+    where: $.definitions.BgpPeerStatus.properties.connectedDuration
+    transform: >
+      $["x-ms-client-name"] = "ConnectedDurationString"
+    reason: Property ends with "Duration" but is not an ISO 8601 / TimeSpan-compatible duration; rename for client to avoid .NET TimeSpan auto-conversion.
 ```
 
 ### Tag: package-2025-05-01
