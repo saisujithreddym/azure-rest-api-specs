@@ -54,6 +54,8 @@ input-file:
   - stable/2025-09-01/virtualNetworkAppliance.json
   - stable/2025-09-01/virtualWan.json
   - stable/2018-10-01/vmssNetwork.json
+modelerfour:
+  lenient-model-deduplication: true
 suppressions:
   - code: PutResponseCodes
     reason: Required for multiple response codes. Reviewed by ARM team.
