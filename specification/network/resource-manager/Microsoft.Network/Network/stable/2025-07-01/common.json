@@ -2699,6 +2699,30 @@
         ]
       }
     },
+    "Common.PrivateEndpointBillingSku": {
+      "type": "string",
+      "description": "The billing sku of the private endpoint.",
+      "enum": [
+        "PayAsYouGo",
+        "Fixed"
+      ],
+      "x-ms-enum": {
+        "name": "PrivateEndpointBillingSku",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "PayAsYouGo",
+            "value": "PayAsYouGo",
+            "description": "PayAsYouGo sku is the default price for private endpoints."
+          },
+          {
+            "name": "Fixed",
+            "value": "Fixed",
+            "description": "Fixed sku is best for high data processing private endpoints."
+          }
+        ]
+      }
+    },
     "Common.PrivateEndpointVNetPolicies": {
       "type": "string",
       "description": "Private Endpoint VNet Policies.",
@@ -4536,6 +4560,54 @@
         ]
       }
     },
+    "ExpressRouteFailoverBgpStatusAddressFamily": {
+      "type": "string",
+      "description": "The address family type for BGP status.",
+      "enum": [
+        "IPv4",
+        "IPv6"
+      ],
+      "x-ms-enum": {
+        "name": "ExpressRouteFailoverBgpStatusAddressFamily",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "IPv4",
+            "value": "IPv4",
+            "description": "IPv4 address family."
+          },
+          {
+            "name": "IPv6",
+            "value": "IPv6",
+            "description": "IPv6 address family."
+          }
+        ]
+      }
+    },
+    "ExpressRouteFailoverLinkType": {
+      "type": "string",
+      "description": "The link on which the failover test is being performed.",
+      "enum": [
+        "Primary",
+        "Secondary"
+      ],
+      "x-ms-enum": {
+        "name": "ExpressRouteFailoverLinkType",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Primary",
+            "value": "Primary",
+            "description": "Primary link."
+          },
+          {
+            "name": "Secondary",
+            "value": "Secondary",
+            "description": "Secondary link."
+          }
+        ]
+      }
+    },
     "ExpressRouteLinkAdminState": {
       "type": "string",
       "description": "Administrative state of the physical port.",
@@ -4580,6 +4652,36 @@
             "name": "SC",
             "value": "SC",
             "description": "SC"
+          }
+        ]
+      }
+    },
+    "ExpressRouteLinkFailoverBgpStatus": {
+      "type": "string",
+      "description": "The BGP status of an ExpressRoute link failover.",
+      "enum": [
+        "Undefined",
+        "Connected",
+        "Disconnected"
+      ],
+      "x-ms-enum": {
+        "name": "ExpressRouteLinkFailoverBgpStatus",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Undefined",
+            "value": "Undefined",
+            "description": "Undefined status."
+          },
+          {
+            "name": "Connected",
+            "value": "Connected",
+            "description": "Connected status."
+          },
+          {
+            "name": "Disconnected",
+            "value": "Disconnected",
+            "description": "Disconnected status."
           }
         ]
       }
@@ -5748,6 +5850,30 @@
         ]
       }
     },
+    "InterconnectGroupScope": {
+      "type": "string",
+      "description": "Scope of an interconnect group resource.",
+      "enum": [
+        "None",
+        "InfiniBand"
+      ],
+      "x-ms-enum": {
+        "name": "InterconnectGroupScope",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "No interconnect group scope."
+          },
+          {
+            "name": "InfiniBand",
+            "value": "InfiniBand",
+            "description": "InfiniBand interconnect group scope."
+          }
+        ]
+      }
+    },
     "IpAllocationType": {
       "type": "string",
       "description": "IpAllocation type.",
@@ -6068,6 +6194,30 @@
             "name": "Platform",
             "value": "Platform",
             "description": "Platform"
+          }
+        ]
+      }
+    },
+    "MaintenanceTestCategory": {
+      "type": "string",
+      "description": "The type of maintenance that can occur during an ExpressRoute failover test.",
+      "enum": [
+        "BgpDisconnect",
+        "ASPathPrepend"
+      ],
+      "x-ms-enum": {
+        "name": "MaintenanceTestCategory",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "BgpDisconnect",
+            "value": "BgpDisconnect",
+            "description": "BGP disconnect test category."
+          },
+          {
+            "name": "ASPathPrepend",
+            "value": "ASPathPrepend",
+            "description": "AS path prepend test category."
           }
         ]
       }
@@ -6449,6 +6599,42 @@
             "name": "Failed",
             "value": "Failed",
             "description": "Failed"
+          }
+        ]
+      }
+    },
+    "NspReadinessState": {
+      "type": "string",
+      "description": "The readiness state of the resource type for NSP support.",
+      "enum": [
+        "Onboarding",
+        "Preview",
+        "GA",
+        "NotReady"
+      ],
+      "x-ms-enum": {
+        "name": "NspReadinessState",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "Onboarding",
+            "value": "Onboarding",
+            "description": "Resource Provider is actively being onboarded to NSP"
+          },
+          {
+            "name": "Preview",
+            "value": "Preview",
+            "description": "Resource Provider supports NSP in Preview"
+          },
+          {
+            "name": "GA",
+            "value": "GA",
+            "description": "Resource Provider is generally available for NSP Integration"
+          },
+          {
+            "name": "NotReady",
+            "value": "NotReady",
+            "description": "NSP Onboarding is not started or not Supported"
           }
         ]
       }
@@ -7962,6 +8148,30 @@
             "name": "Staging",
             "value": "Staging",
             "description": "Staging"
+          }
+        ]
+      }
+    },
+    "SubgroupProfileScope": {
+      "type": "string",
+      "description": "Scope of the subgroup profile.",
+      "enum": [
+        "None",
+        "VerticalConnect"
+      ],
+      "x-ms-enum": {
+        "name": "SubgroupProfileScope",
+        "modelAsString": true,
+        "values": [
+          {
+            "name": "None",
+            "value": "None",
+            "description": "No subgroup profile scope."
+          },
+          {
+            "name": "VerticalConnect",
+            "value": "VerticalConnect",
+            "description": "VerticalConnect subgroup profile scope."
           }
         ]
       }

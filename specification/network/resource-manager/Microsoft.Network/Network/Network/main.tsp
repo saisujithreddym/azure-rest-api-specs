@@ -130,10 +130,12 @@ import "./BgpConnection.tsp";
 import "./HubIpConfiguration.tsp";
 import "./HubRouteTable.tsp";
 import "./RoutingIntent.tsp";
+import "./ConnectionPolicy.tsp";
 import "./WebApplicationFirewallPolicy.tsp";
 import "./routes.tsp";
 import "./VirtualNetworkAppliance.tsp";
 import "./ServiceGateway.tsp";
+import "./InterconnectGroup.tsp";
 import "../Common/main.tsp";
 
 using TypeSpec.Rest;

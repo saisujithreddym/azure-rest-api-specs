@@ -90,6 +90,10 @@ enum Features {
   serviceGateway,
   #suppress "@azure-tools/typespec-azure-core/documentation-required"
   virtualNetworkAppliance,
+
+  /** Interconnect group resource type for managing interconnect groups and subgroups. */
+  @added(Versions.v2025_07_01)
+  interconnectGroup,
 }
 
 /**
@@ -212,6 +216,24 @@ union PrivateEndpointIPVersionType {
    * Indicates that the Private IPs of the private endpoint can be both IPv4 and IPv6.
    */
   DualStack: "DualStack",
+}
+
+/**
+ * The billing sku of the private endpoint.
+ */
+@added(Versions.v2025_07_01)
+union PrivateEndpointBillingSku {
+  string,
+
+  /**
+   * PayAsYouGo sku is the default price for private endpoints.
+   */
+  PayAsYouGo: "PayAsYouGo",
+
+  /**
+   * Fixed sku is best for high data processing private endpoints.
+   */
+  Fixed: "Fixed",
 }
 
 /**
@@ -2862,6 +2884,12 @@ model PrivateEndpointProperties {
    * The custom name of the network interface attached to the private endpoint.
    */
   customNetworkInterfaceName?: string;
+
+  /**
+   * The billing sku of the private endpoint.
+   */
+  @added(Versions.v2025_07_01)
+  billingSku?: PrivateEndpointBillingSku;
 }
 
 /**

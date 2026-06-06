@@ -43,6 +43,7 @@ input-file:
   - stable/2025-07-01/expressRoute.json
   - stable/2025-07-01/firewall.json
   - stable/2025-07-01/firewallPolicy.json
+  - stable/2025-07-01/interconnectGroup.json
   - stable/2025-07-01/loadBalancer.json
   - stable/2025-07-01/networkGateway.json
   - stable/2025-07-01/networkingOperations.json
@@ -78,6 +79,28 @@ suppressions:
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkSecurityPerimeters/{networkSecurityPerimeterName}/linkReferences/{linkReferenceName}"].delete
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkSecurityPerimeters/{networkSecurityPerimeterName}/links/{linkName}"].delete
       - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkSecurityPerimeters/{networkSecurityPerimeterName}"].delete
+  - code: ProvisioningStateMustBeReadOnly
+    from: interconnectGroup.json
+    reason: provisioningState is correctly marked readOnly in the referenced schema. The linter does not follow $ref chains to verify readOnly.
+    where:
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/interconnectGroups/{interconnectGroupName}"].get.responses["200"].schema
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/interconnectGroups/{interconnectGroupName}"].put.responses["200"].schema
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/interconnectGroups/{interconnectGroupName}"].put.responses["201"].schema
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/interconnectGroups/{interconnectGroupName}"].patch.responses["200"].schema
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/interconnectGroups/{interconnectGroupName}/subgroups/{subgroupName}"].get.responses["200"].schema
+  - code: ResourceNameRestriction
+    from: interconnectGroup.json
+    reason: Subgroup is a read-only child resource with no PUT operation. Pattern restriction is not applicable.
+    where:
+      - $.paths["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/interconnectGroups/{interconnectGroupName}/subgroups/{subgroupName}"]
+  - code: RequiredPropertiesMissingInResourceModel
+    from: interconnectGroup.json
+    reason: name, id and type properties are inherited from the upper level
+    where:
+      - $.definitions.InterconnectGroup
+      - $.definitions.InterconnectGroupListResult
+      - $.definitions.Subgroup
+      - $.definitions.SubgroupListResult
   - code: PatchIdentityProperty
     reason: False alarm.
     where:
@@ -4352,6 +4375,12 @@ input-file:
 
 ```yaml
 directive:
+  - suppress: ResourceNameRestriction
+    from: virtualWan.json
+    reason: virtualHubName is an existing parent resource path parameter established in prior API versions. Adding a pattern constraint would be a breaking change to 2025-05-01 and earlier versions.
+  - suppress: ProvisioningStateMustBeReadOnly
+    from: virtualWan.json
+    reason: The Common.ProvisioningState type is marked readOnly in TypeSpec via @visibility(Lifecycle.Read), but the autorest emitter places readOnly as a sibling of $ref rather than in the type definition itself. The linter does not follow $ref siblings per OpenAPI 2.0 spec. Known issue https://github.com/Azure/azure-openapi-validator/issues/637
   - suppress: PutRequestResponseSchemeArm
     from: virtualNetworkAppliance.json
     reason: Known issue. Github link https://github.com/Azure/azure-openapi-validator/issues/752
@@ -4617,6 +4646,12 @@ directive:
   - suppress: ParametersInPost
     from: virtualNetworkGateway.json
     reason: There are existing APIs in the file using the same format. Suppress it to avoid breaking change because it is referenced by all Virtual Network Gateway APIs.
+  - suppress: ParametersInPost
+    from: expressRoute.json
+    reason: Backend APIs require these as query parameters for consistency with existing VirtualNetworkGateway failover APIs.
+  - suppress: ParametersInPost
+    from: virtualWan.json
+    reason: Backend APIs require these as query parameters for consistency with existing VirtualNetworkGateway failover and insights APIs.
   - suppress: AvoidAdditionalProperties
     from: virtualNetworkGateway.json
     reason: We are using Dictionaries in the NRP APIs which are already rolled out. Suppress it since this is used by the Gateway Resiliency APIs.
@@ -4677,6 +4712,30 @@ directive:
     reason: name, id and type properties are inherited from the upper level
 
 suppressions:
+  - code: ResourceNameRestriction
+    from: expressRoute.json
+    reason: The resource name parameter 'circuitName' is not defined with a 'pattern' restriction. Suppress it for now to avoid breaking change because it is referenced by all ExpressRoute circuit link failover APIs.
+    where:
+      - $.paths.["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteCircuits/{circuitName}/getCircuitLinkFailoverAllTestsDetails"]
+      - $.paths.["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteCircuits/{circuitName}/getCircuitLinkFailoverSingleTestDetails"]
+      - $.paths.["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteCircuits/{circuitName}/startCircuitLinkFailoverTest"]
+      - $.paths.["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteCircuits/{circuitName}/stopCircuitLinkFailoverTest"]
+  - code: ParametersInPost
+    from: expressRoute.json
+    reason: Backend APIs require these as query parameters for consistency with existing VirtualNetworkGateway failover APIs.
+  - code: ResourceNameRestriction
+    from: virtualWan.json
+    reason: The resource name parameter 'expressRouteGatewayName' is not defined with a 'pattern' restriction. Suppress it for now to avoid breaking change because it is referenced by all ExpressRoute gateway failover and insights APIs.
+    where:
+      - $.paths.["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteGateways/{expressRouteGatewayName}/getFailoverAllTestsDetails"]
+      - $.paths.["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteGateways/{expressRouteGatewayName}/getFailoverSingleTestDetails"]
+      - $.paths.["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteGateways/{expressRouteGatewayName}/startSiteFailoverTest"]
+      - $.paths.["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteGateways/{expressRouteGatewayName}/stopSiteFailoverTest"]
+      - $.paths.["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteGateways/{expressRouteGatewayName}/getRoutesInformation"]
+      - $.paths.["/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/expressRouteGateways/{expressRouteGatewayName}/getResiliencyInformation"]
+  - code: ParametersInPost
+    from: virtualWan.json
+    reason: Backend APIs require these as query parameters for consistency with existing VirtualNetworkGateway failover and insights APIs.
   - code: ResourceNameRestriction
     from: bastionhost.json
     reason: The resource name parameter 'bastionHostName' is not defined with a 'pattern' restriction. Suppress it for now to avoid breaking change because it is referenced by all Bastion APIs.
