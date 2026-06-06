@@ -1,11 +1,13 @@
 import "@typespec/rest";
 import "@typespec/http";
+import "@typespec/versioning";
 import "@azure-tools/typespec-azure-core";
 import "@azure-tools/typespec-azure-resource-manager";
 import "../Common/main.tsp";
 
 using TypeSpec.Rest;
 using TypeSpec.Http;
+using TypeSpec.Versioning;
 using Azure.ResourceManager;
 using Azure.Core;
 using Azure.ResourceManager.Foundations;
@@ -11952,6 +11954,13 @@ model FirewallPolicyPropertiesFormat {
   ruleCollectionGroups?: SubResource[];
 
   /**
+   * List of references to FirewallPolicyKubeSelectorGroups.
+   */
+  @added(Versions.v2025_09_01)
+  @visibility(Lifecycle.Read)
+  kubeSelectorGroups?: SubResource[];
+
+  /**
    * The provisioning state of the firewall policy resource.
    */
   @visibility(Lifecycle.Read)
@@ -12377,6 +12386,85 @@ model FirewallPolicyRuleCollectionGroupProperties {
    */
   @visibility(Lifecycle.Read)
   provisioningState?: ProvisioningState;
+}
+
+/**
+ * Properties of the kube selector group.
+ */
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+@added(Versions.v2025_09_01)
+@Azure.ResourceManager.Legacy.feature(Features.firewallPolicy)
+model FirewallPolicyKubeSelectorGroupProperties {
+  /**
+   * List of ARM resource IDs of Microsoft.ContainerService/managedClusters.
+   */
+  clusterIds?: string[];
+
+  /**
+   * Kubernetes pod label selector.
+   */
+  podSelector?: KubeLabelSelector;
+
+  /**
+   * Kubernetes namespace label selector.
+   */
+  namespaceSelector?: KubeLabelSelector;
+
+  /**
+   * The timestamp of the last update to this kube selector group.
+   */
+  @visibility(Lifecycle.Read)
+  lastUpdated?: utcDateTime;
+
+  /**
+   * The provisioning state of the firewall policy kube selector group resource.
+   */
+  @visibility(Lifecycle.Read)
+  provisioningState?: ProvisioningState;
+}
+
+/**
+ * Kubernetes label selector.
+ */
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+@added(Versions.v2025_09_01)
+@Azure.ResourceManager.Legacy.feature(Features.firewallPolicy)
+model KubeLabelSelector {
+  /**
+   * Equality-based label selectors.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/arm-no-record" "Kubernetes matchLabels is an open-ended label map where callers provide arbitrary label keys."
+  matchLabels?: Record<string>;
+
+  /**
+   * Set-based label selector requirements.
+   */
+  @identifiers(#[])
+  matchExpressions?: LabelSelectorExpression[];
+}
+
+/**
+ * Kubernetes label selector requirement.
+ */
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+@added(Versions.v2025_09_01)
+@Azure.ResourceManager.Legacy.feature(Features.firewallPolicy)
+model LabelSelectorExpression {
+  /**
+   * The label key that the selector applies to.
+   */
+  #suppress "@azure-tools/typespec-azure-resource-manager/secret-prop" "This is a Kubernetes label key, not a credential or secret."
+  key?: string;
+
+  /**
+   * The selector operator. Supported values are In, NotIn, Exists, and DoesNotExist.
+   */
+  operator?: string;
+
+  /**
+   * The label values for set-based operators.
+   */
+  values?: string[];
 }
 
 /**
@@ -24880,6 +24968,18 @@ model ApplicationRule extends FirewallPolicyRule {
   sourceIpGroups?: string[];
 
   /**
+   * List of source FirewallPolicyKubeSelectorGroup resource IDs for this rule.
+   */
+  @added(Versions.v2025_09_01)
+  sourceKubeSelectorGroups?: string[];
+
+  /**
+   * List of destination FirewallPolicyKubeSelectorGroup resource IDs for this rule.
+   */
+  @added(Versions.v2025_09_01)
+  destinationKubeSelectorGroups?: string[];
+
+  /**
    * Terminate TLS connections for this rule.
    */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
@@ -25022,9 +25122,21 @@ model NetworkRule extends FirewallPolicyRule {
   sourceIpGroups?: string[];
 
   /**
+   * List of source FirewallPolicyKubeSelectorGroup resource IDs for this rule.
+   */
+  @added(Versions.v2025_09_01)
+  sourceKubeSelectorGroups?: string[];
+
+  /**
    * List of destination IpGroups for this rule.
    */
   destinationIpGroups?: string[];
+
+  /**
+   * List of destination FirewallPolicyKubeSelectorGroup resource IDs for this rule.
+   */
+  @added(Versions.v2025_09_01)
+  destinationKubeSelectorGroups?: string[];
 
   /**
    * List of destination FQDNs.

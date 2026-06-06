@@ -922,6 +922,12 @@ using Microsoft.Network;
 );
 #suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @@Legacy.flattenProperty(FirewallPolicyRuleCollectionGroup.properties);
+@@clientName(
+  FirewallPolicyKubeSelectorGroups.createOrUpdate::parameters.resource,
+  "parameters"
+);
+#suppress "@azure-tools/typespec-azure-core/no-legacy-usage" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
+@@Legacy.flattenProperty(FirewallPolicyKubeSelectorGroup.properties);
 
 @@clientName(
   FirewallPolicyIdpsSignaturesOverrides.put::parameters.resource,

@@ -1,0 +1,108 @@
+{
+  "parameters": {
+    "api-version": "2025-09-01",
+    "firewallPolicyName": "firewallPolicy",
+    "kubeSelectorGroupName": "ksg1",
+    "parameters": {
+      "properties": {
+        "clusterIds": [
+          "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/aksCluster1"
+        ],
+        "podSelector": {
+          "matchLabels": {
+            "app": "payments"
+          },
+          "matchExpressions": [
+            {
+              "key": "tier",
+              "operator": "In",
+              "values": [
+                "frontend",
+                "api"
+              ]
+            }
+          ]
+        },
+        "namespaceSelector": {
+          "matchLabels": {
+            "kubernetes.io/metadata.name": "prod"
+          }
+        }
+      }
+    },
+    "resourceGroupName": "rg1",
+    "subscriptionId": "00000000-0000-0000-0000-000000000000"
+  },
+  "responses": {
+    "200": {
+      "body": {
+        "name": "ksg1",
+        "etag": "W/\"72090554-7e3b-43f2-80ad-99a9020dcb11\"",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Network/firewallPolicies/firewallPolicy/kubeSelectorGroups/ksg1",
+        "properties": {
+          "clusterIds": [
+            "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/aksCluster1"
+          ],
+          "podSelector": {
+            "matchLabels": {
+              "app": "payments"
+            },
+            "matchExpressions": [
+              {
+                "key": "tier",
+                "operator": "In",
+                "values": [
+                  "frontend",
+                  "api"
+                ]
+              }
+            ]
+          },
+          "namespaceSelector": {
+            "matchLabels": {
+              "kubernetes.io/metadata.name": "prod"
+            }
+          },
+          "lastUpdated": "2025-09-01T00:00:00Z",
+          "provisioningState": "Succeeded"
+        }
+      }
+    },
+    "201": {
+      "body": {
+        "name": "ksg1",
+        "etag": "W/\"72090554-7e3b-43f2-80ad-99a9020dcb11\"",
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.Network/firewallPolicies/firewallPolicy/kubeSelectorGroups/ksg1",
+        "properties": {
+          "clusterIds": [
+            "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/aksCluster1"
+          ],
+          "podSelector": {
+            "matchLabels": {
+              "app": "payments"
+            },
+            "matchExpressions": [
+              {
+                "key": "tier",
+                "operator": "In",
+                "values": [
+                  "frontend",
+                  "api"
+                ]
+              }
+            ]
+          },
+          "namespaceSelector": {
+            "matchLabels": {
+              "kubernetes.io/metadata.name": "prod"
+            }
+          },
+          "lastUpdated": "2025-09-01T00:00:00Z",
+          "provisioningState": "Succeeded"
+        }
+      }
+    }
+  },
+  "operationId": "FirewallPolicyKubeSelectorGroups_CreateOrUpdate",
+  "title": "Create Firewall Policy Kube Selector Group"
+}
